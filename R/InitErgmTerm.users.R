@@ -1,3 +1,12 @@
+#  File R/InitErgmTerm.users.R in package ergm.userterms, part of the Statnet suite
+#  of packages for network analysis, http://statnet.org .
+#
+#  This software is distributed under the GPL-3 license.  It is free,
+#  open source, and has the attribution requirements (GPL Section 7) at
+#  http://statnet.org/attribution
+#
+#  Copyright 2003-2013 Statnet Commons
+#######################################################################
 ######################################################################
 #
 # !! USERS: READ THIS FIRST!!
@@ -137,35 +146,6 @@
 #  This InitErgmTerm function is for the mindegree term described
 #  in Hunter, Goodreau, and Handcock (2011), "ergm.userterms:  A
 #  Template Package for Extending statnet"
-InitErgmTerm.mindegree <- function(nw, arglist, ...) {
-  a <- check.ErgmTerm(nw, arglist, directed=FALSE, bipartite=FALSE,
-      varnames = c("mindeg", "by"),
-      vartypes = c("numeric", "character"),
-      required = c(TRUE, FALSE),
-      defaultvalues = list(NULL, NULL))
-  if(length(a$mindeg) > 1)
-    stop("The argument mindeg to mindegree expected a vector of length ",
-         "1, but received a vector of length ",length(a$mindeg))
-  if (is.null(a$by)) {
-    attrflag <- 0
-    nodecov <- NULL
-    coef.names <- paste("mindegree", a$mindeg, sep="")
-  } else {
-    attrflag <- 1
-    nodecov <- get.node.attr(nw, a$by)
-    coef.names <- paste("mindegree.", a$by, a$mindeg, sep="")
-    u <- sort(unique(nodecov))
-    nodecov <- match(nodecov,u)
-  }
-  list(name = "mindegree",
-      coef.names = coef.names,
-      pkgname = "ergm.userterms",
-      inputs = c(attrflag, a$mindeg, nodecov),
-      dependence = TRUE,
-      emptynwstats = (a$mindeg == 0) * network.size(nw)
-  )
-}
-
 InitErgmTerm.nmedges<-function(nw, arglist, ...) {
   a <- check.ErgmTerm(nw, arglist,
                       varnames = NULL,
@@ -568,6 +548,10 @@ InitErgmTerm.blkdegseq <- function(nw,arglist,...){
 	inputs <- c(nblk,blk,length(wb),wb)
 	list(name="blkdegseq",coef.names=coef.names,pkgnames="ergm.userterms",inputs=inputs,minval=0,conflicts.constraints = "degreedist")
 }
+
+
+
+
 
 
 

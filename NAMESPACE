@@ -1,5 +1,7 @@
 
 useDynLib(blkergm)
 
+import(statnet.common,network,ergm)
+
 # Export all names
 exportPattern(".")
